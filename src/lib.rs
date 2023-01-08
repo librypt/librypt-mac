@@ -6,5 +6,5 @@ pub type Mac<const SIZE: usize> = [u8; SIZE];
 /// NOTE: Make sure to consult documentation for specific MAC algorithms, as some may require providing more data than what the compute functions require to be secure.
 pub trait MacFn<const OUTPUT_SIZE: usize> {
     /// Compute a MAC given a message and a secret.
-    fn compute(msg: &[u8], secret: &[u8]) -> Mac<OUTPUT_SIZE>;
+    fn compute<'a>(msg: impl IntoIterator<Item = &'a u8>, secret: &[u8]) -> Mac<OUTPUT_SIZE>;
 }
