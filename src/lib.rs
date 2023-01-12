@@ -17,11 +17,11 @@ pub trait MacFn<const OUTPUT_SIZE: usize>: Sized {
     /// Produces the final MAC, resetting the MAC state for reuse.
     fn finalize_reset(&mut self) -> Mac<OUTPUT_SIZE>;
 
-    /// Compute a MAC given a message and a secret.
-    fn mac(msg: &[u8], secret: &[u8]) -> Mac<OUTPUT_SIZE> {
+    /// Compute a MAC given a secret and a message.
+    fn mac(secret: &[u8], message: &[u8]) -> Mac<OUTPUT_SIZE> {
         let mut mac = Self::new(secret);
 
-        mac.update(msg);
+        mac.update(message);
 
         mac.finalize()
     }
